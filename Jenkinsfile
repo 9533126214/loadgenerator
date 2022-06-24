@@ -1,11 +1,11 @@
 pipeline {
 
   environment {
-    PROJECT = "indigo-history-337312"
+    PROJECT = "ascendant-timer-350911"
     APP_NAME = "load"
     FE_SVC_NAME = "${APP_NAME}- loadgenerator"
-    CLUSTER = "way2die"
-    CLUSTER_ZONE = "us-east4-b"
+    CLUSTER = "ci-cd"
+    CLUSTER_ZONE = "us-central1-c"
     IMAGE_TAG = "gcr.io/${PROJECT}/${APP_NAME}:${env.BUILD_NUMBER}"
     JENKINS_CRED = "${PROJECT}"
   }
@@ -65,7 +65,7 @@ spec:
           
           sh "gcloud auth list"
 
-          sh "gcloud container clusters get-credentials way2die --zone us-east4-b --project indigo-history-337312"
+          sh "gcloud container clusters get-credentials ci-cd --zone us-central1-c --project ascendant-timer-350911"
           sh("sed -i.bak 's#loadgeneratorservicenag#${IMAGE_TAG}#' *.yaml")
           sh "kubectl apply -f loadgenerator.yaml"
         }
